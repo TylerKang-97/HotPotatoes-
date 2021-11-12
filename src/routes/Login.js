@@ -1,76 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
-export const Login = ({ navigator, page }) => {
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
+const Login = ({ navigation }) => {
     return (
-        <View style={{ margin: '10%', padding: '2%', flexDirection: 'column', flex: 1, backgroundColor: 'white' }}>
-            <View
-                style={{
-                    flexDirection: 'column',
-                    flex: 1,
-                }}
-            >
-                <Text style={{ textAlign: 'center', fontSize: 26, fontWeight: '800' }}>로그인 화면</Text>
+        <View style={styles.container}>
+            <View style={styles.topBar}>
+                <Text>뜨거운 감자</Text>
             </View>
-            <View style={{ flex: 3 }}>
-                <View
-                    style={{
-                        padding: '5%',
-                        flex: 1,
-                    }}
-                >
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginHorizontal: '2%',
-                            marginVertical: '1%',
-                            alignItems: 'center',
-                            flex: 1,
-                        }}
-                    >
-                        <Text style={{ flex: 1 }}>아이디</Text>
-                        <TextInput style={styles.input} onChangeText={(text) => setId(text)} value={id} returnKeyType="next" />
-                    </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginHorizontal: '2%',
-                            marginVertical: '1%',
-                            alignItems: 'center',
-                            flex: 1,
-                        }}
-                    >
-                        <Text style={{ flex: 1 }}>비밀번호</Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={(text) => setPassword(text)}
-                            value={password}
-                            secureTextEntry={true}
-                        />
-                    </View>
-                </View>
+            <View style={styles.mainScreen}>
+                <Text>LoginScreen</Text>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
-                <Button style={{ flex: 1 }} title="Login" onPress={() => console.log(`ID: ${id}, Password: ${password}`)} />
-                <Button style={{ flex: 1 }} title="Join" onPress={() => console.log('회원가입!')} />
+            <View>
+                <Button title="BACK TO HOME" onPress={() => navigation.goBack()} />
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        flex: 3,
-        margin: 'auto',
-        borderWidth: 1,
-        // padding: 20,
-        paddingHorizontal: 10,
-        color: 'black',
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: '2%',
+    },
+    topBar: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    mainScreen: {
+        flex: 9,
+        justifyContent: 'center',
+    },
+    bottomBar: {
+        flex: 1,
     },
 });
+
+export default Login;
