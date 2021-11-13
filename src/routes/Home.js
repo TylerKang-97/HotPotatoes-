@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
 // import Pages from '../components/Pages';
 import Pages from '../components/Pages';
+import Test from './Test';
 const Home = ({ navigation }) => {
     const [pages, setPages] = useState(Pages.kor);
 
@@ -14,7 +15,13 @@ const Home = ({ navigation }) => {
             <View style={styles.mainScreen}>
                 {/* <Text>mainScreen</Text> */}
                 <Button title="토론 목록으로 입장" style={styles.enterDebateList} onPress={() => navigation.navigate(pages.listDebates)} />
-                <Button title="새 토론 생성하기" style={styles.addDebate} onPress={() => navigation.navigate(pages.addDebate)} />
+                
+                <Button
+                title="Go to Test"
+                onPress={() => {
+                    navigation.navigate('Test');
+                }}
+            />
             </View>
             <View style={styles.bottomBar}>
                 {/* <Text style={styles.button} onPress={() => navigation.navigate('Login')}>
