@@ -1,31 +1,51 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, SectionList } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { StyleSheet, KeyboardAvoidingView,
+Platform, TouchableWithoutFeedback, Keyboard, Text,
+TextInput, View, Button
+} from 'react-native';
 
 
 const Test = () => {
-    const [comment, setComment ] = useState("");
+    const [title, setTitle ] = useState("");
+    const [content, setContent ] = useState("");
+    const [isTouched, setIsTouched ] = useState(false);
+    const [isTouched2, setIsTouched2 ] = useState(false);
 
     return (
-      <View style={styles.container}>
-        
-    <Card style={styles.card}>
-        <Card.Content>
-        <Text>
-              {comment ? comment : "글을 입력해 주세요 :)" }
-        </Text>
-        <StatusBar style="auto" />
-        <TextInput 
-          style={styles.input}
-          onChangeText={text => setComment(text)}
-          value={comment}
-          returnKeyType="done" // 입력 종료:  done, 개행시: next
+    <KeyboardAvoidingView>
+        <View>
+          <View style={styles.Header}>
+          <Text style={styles.title}>{isTouched ? title : "제목" }</Text>
+          <Text style={styles.content}>{isTouched2 ? content : "내용" }</Text>
+          </View>
+          <View style={styles.contentForm}>
+          <TextInput
+          style={styles.inputTitle} 
+          placeholder="제목을 입력해주세요"
+          onChangeText={text => setTitle(text)}
+          value={title}
+          returnKeyType="next" // 입력 종료:  done, 개행시: next
           />
-        </Card.Content>
-        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-    </Card>
-      </View>
+          <View>
+            <Button title="제목" onPress={() => setIsTouched(true)}/>
+          </View>
+          
+          <TextInput
+          style={styles.inputContent}
+          placeholder="내용 입력해주세요."
+          onChangeText={text => setContent(text)}
+          value={content}
+          multiline={true} // 개행 가능
+          returnKeyType="done"
+          blurOnSubmit={true}
+           />
+          <View>
+            <Button title="Submit" onPress={() => setIsTouched2(true)}/>
+          </View>
+          </View>
+        </View>
+    </KeyboardAvoidingView>
       
     );
 }
@@ -37,15 +57,34 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    input: {
+    title: {
+      textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: '20px',
+    },
+    content: {
+      textAlign: 'center',
+    },
+    inputTitle: {
       height: 40,
-      margin: 12,
-      borderWidth: 1,
+      marginTop: 10,
+      marginLeft: 110,
+      marginRight: 50,
       padding: 10,
     },
-    card: {
-    width: 300,
-    height: 215,
+    inputContent: {
+      marginLeft: 120,
+      marginRight: 100,
+      marginTop: 10,
+      height: 23,
     },
+    contentForm: {
+      marginTop: 30,
+      borderWidth: 3,
+    },
+    Header: {
+      height: 100,
+    }
+
   });
 export default Test;
