@@ -13,19 +13,32 @@ import Pages from './src/components/Pages';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+    const [locale, setLocale] = useState('kor');
     const [pages, setPages] = useState(Pages.kor);
     const [init, setInit] = useState(false);
 
     useEffect(() => {
+        // setLocale('kor');
+        // locale === 'kor' ? setPages(Pages.kor) : setPages(Pages.eng);
+        // setPages(Pages.kor)
+
         if (pages !== null || pages !== undefined) setInit(true);
-    }, [pages]);
+    }, []);
+
+    const navigation = Stack.Navigator;
+    // navigation;
     return init ? (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name={pages.home} component={Home} pages={pages} navigation={Stack.Navigator} />
-                <Stack.Screen name="Details" component={Details} navigation={Stack.Navigator} />
-                <Stack.Screen name="Test" component={Test} navigation={Stack.Navigator} />
-                <Stack.Screen name={pages.login} component={Login} pages={pages} navigation={Stack.Navigator} />
+            <Stack.Navigator initialRouteName={pages.home}>
+                <Stack.Screen name={pages.home}>
+                    {(props) => <Home {...props} pages={pages} navigation={navigation} locale={locale} />}
+                </Stack.Screen>
+                <Stack.Screen name={pages.test}>
+                    {(props) => <Test {...props} pages={pages} navigation={navigation} locale={locale} />}
+                </Stack.Screen>
+                <Stack.Screen name={pages.login}>
+                    {(props) => <Login {...props} pages={pages} navigation={navigation} locale={locale} />}
+                </Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     ) : (
